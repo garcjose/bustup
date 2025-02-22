@@ -1,10 +1,7 @@
+use crate::context::Ctx;
 use anyhow::Result;
-use clap::ArgMatches;
 
-pub fn run(args: &ArgMatches) -> Result<()> {
-    println!(
-        "Rupdatting toolchain... {}",
-        args.get_one::<String>("toolchain").unwrap()
-    );
+pub fn run(ctx: &Ctx) -> Result<()> {
+    println!("Rupdatting toolchain... {}", ctx.toolchain);
     Ok(())
 }

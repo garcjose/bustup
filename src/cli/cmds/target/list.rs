@@ -1,6 +1,6 @@
 use crate::{cli::Cmd, context::Ctx};
 use anyhow::Result;
-use clap::ArgMatches;
+use clap::{Arg, ArgAction, ArgMatches, Command};
 
 pub struct BustupTargetList;
 impl Cmd for BustupTargetList {
@@ -17,4 +17,14 @@ impl Cmd for BustupTargetList {
         );
         Ok(())
     }
+}
+
+pub fn build() -> Command {
+    Command::new("list").about("list targets").arg(
+        Arg::new("installed")
+            .help("Only list installed targets")
+            .long("installed")
+            .short('i')
+            .action(ArgAction::SetTrue),
+    )
 }

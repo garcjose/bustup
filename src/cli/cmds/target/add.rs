@@ -1,6 +1,6 @@
 use crate::{cli::Cmd, context::Ctx};
 use anyhow::Result;
-use clap::ArgMatches;
+use clap::{Arg, ArgAction, ArgMatches, Command};
 
 pub struct BustupTargetAdd;
 impl Cmd for BustupTargetAdd {
@@ -17,4 +17,12 @@ impl Cmd for BustupTargetAdd {
         );
         Ok(())
     }
+}
+
+pub fn build() -> Command {
+    Command::new("add").about("add a target").arg(
+        Arg::new("target")
+            .help("The target to add")
+            .action(ArgAction::Set),
+    )
 }

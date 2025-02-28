@@ -1,6 +1,6 @@
 use crate::{cli::Cmd, context::Ctx};
 use anyhow::Result;
-use clap::ArgMatches;
+use clap::{Arg, ArgAction, ArgMatches, Command};
 
 pub struct BustupTarget;
 impl Cmd for BustupTarget {
@@ -22,3 +22,20 @@ impl Cmd for BustupTarget {
 pub mod add;
 pub mod list;
 pub mod remove;
+
+pub fn build() -> Command {
+    Command::new("target")
+        .about("manage targets")
+        .arg(
+            Arg::new("toolchain")
+                .help("toolchain to use")
+                .long("toolchain")
+                .short('t')
+                .action(ArgAction::Set)
+                .default_value("default")
+                .global(true),
+        )
+        .subcommand(add::build())
+        .subcommand(list::build())
+        .subcommand(remove::build())
+}

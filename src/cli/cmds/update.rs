@@ -1,6 +1,6 @@
 use crate::{cli::Cmd, context::Ctx};
 use anyhow::Result;
-use clap::ArgMatches;
+use clap::{Arg, ArgAction, ArgMatches, Command};
 
 pub struct BustupUpdate;
 impl Cmd for BustupUpdate {
@@ -18,4 +18,22 @@ impl Cmd for BustupUpdate {
         );
         Ok(())
     }
+}
+
+pub fn build() -> Command {
+    Command::new("update")
+        .about("update toolchains")
+        .arg(
+            Arg::new("toolchain")
+                .help("toolchain to update")
+                .action(ArgAction::Set)
+                .default_value("default"),
+        )
+        .arg(
+            Arg::new("force")
+                .short('f')
+                .long("force")
+                .help("Forcibly update")
+                .action(ArgAction::SetTrue),
+        )
 }

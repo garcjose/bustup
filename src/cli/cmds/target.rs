@@ -1,6 +1,11 @@
-use crate::{cli::Cmd, context::Ctx};
+mod add;
+mod list;
+mod remove;
+
 use anyhow::Result;
 use clap::{Arg, ArgAction, ArgMatches, Command};
+
+use crate::{cli::Cmd, context::Ctx};
 
 pub struct BustupTarget;
 impl Cmd for BustupTarget {
@@ -18,10 +23,6 @@ impl Cmd for BustupTarget {
         }
     }
 }
-
-pub mod add;
-pub mod list;
-pub mod remove;
 
 pub fn build() -> Command {
     Command::new("target")

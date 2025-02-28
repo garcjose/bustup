@@ -1,18 +1,11 @@
 mod cli;
 mod context;
 
-use crate::cli::cmds::update;
-use crate::context::Ctx;
-use anyhow::Ok;
+use crate::{cli::Bustup, cli::Cmd, context::Ctx};
 
 fn main() -> anyhow::Result<()> {
     let args = cli::build().get_matches();
-    match args.subcommand() {
-        Some(("update", args)) => {
-            let ctx = Ctx::from_update(args);
-            update::run(&ctx)?
-        }
-        _ => todo!("implement other subcommands"),
-    };
-    Ok(())
+    let mut ctx = Ctx::default();
+    let cmd: Box<dyn Cmd> = Box::new(Bustup);
+    cmd.walk_exec(&args, &mut ctx)
 }

@@ -1,13 +1,17 @@
-use clap::ArgMatches;
-
 pub struct Ctx {
-    pub toolchain: String,
+    pub toolchain: Option<String>,
+    pub force: bool,
+    pub target: Option<String>,
+    pub installed: bool,
 }
 
-impl Ctx {
-    pub fn from_update(args: &ArgMatches) -> Self {
+impl Default for Ctx {
+    fn default() -> Self {
         Self {
-            toolchain: args.get_one::<String>("toolchain").unwrap().to_string(),
+            toolchain: Some("default".to_string()),
+            force: false,
+            target: Some("target".to_string()),
+            installed: false,
         }
     }
 }

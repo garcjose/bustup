@@ -1,3 +1,4 @@
+use anyhow::Result;
 use clap::Args;
 
 /// update toolchains
@@ -10,4 +11,15 @@ pub struct BustupUpdate {
     /// forcibly update toolchain
     #[arg(short, long)]
     pub force: bool,
+}
+
+impl BustupUpdate {
+    pub fn run(&self) -> Result<()> {
+        println!(
+            "updating {} toolchain...{}",
+            if self.force { "forcibly" } else { "" },
+            self.toolchain
+        );
+        Ok(())
+    }
 }

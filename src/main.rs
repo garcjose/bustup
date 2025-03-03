@@ -5,6 +5,9 @@ use crate::cli::Bustup;
 
 fn main() -> anyhow::Result<()> {
     let args = Bustup::parse();
-    todo!("Implement bustup");
+    match args.cmd {
+        cli::BustupCmd::Update(update) => update.run()?,
+        _ => println!("not implemented"),
+    }
     Ok(())
 }

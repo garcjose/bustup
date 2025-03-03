@@ -7,3 +7,10 @@ pub struct BustupTargetRemove {
     #[arg(default_value = "default")]
     pub target: String,
 }
+
+impl BustupTargetRemove {
+    pub fn run(&self) -> anyhow::Result<()> {
+        println!("removing target...{}", self.target);
+        Ok(())
+    }
+}

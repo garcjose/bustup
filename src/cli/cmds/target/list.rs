@@ -7,3 +7,10 @@ pub struct BustupTargetList {
     #[arg(short, long)]
     pub installed: bool,
 }
+
+impl BustupTargetList {
+    pub fn run(&self) -> anyhow::Result<()> {
+        println!("listing targets...");
+        Ok(())
+    }
+}

@@ -21,3 +21,13 @@ pub enum BustupTargetCmd {
     List(list::BustupTargetList),
     Remove(remove::BustupTargetRemove),
 }
+
+impl BustupTarget {
+    pub fn run(&self) -> anyhow::Result<()> {
+        match &self.cmd {
+            BustupTargetCmd::Add(add) => add.run(),
+            BustupTargetCmd::List(list) => list.run(),
+            BustupTargetCmd::Remove(remove) => remove.run(),
+        }
+    }
+}

@@ -1,5 +1,8 @@
 use clap::Args;
 
+use crate::cli::Cmd;
+use crate::context::Ctx;
+
 /// remove a target
 #[derive(Clone, Args)]
 pub struct BustupTargetRemove {
@@ -8,9 +11,13 @@ pub struct BustupTargetRemove {
     pub target: String,
 }
 
-impl BustupTargetRemove {
-    pub fn run(&self) -> anyhow::Result<()> {
-        println!("removing target...{}", self.target);
+impl Cmd for BustupTargetRemove {
+    fn run(&self, ctx: &mut Ctx) -> anyhow::Result<()> {
+        println!(
+            "Removing the {} target from the {} toolchain",
+            self.target,
+            ctx.target_toolchain.as_ref().unwrap(),
+        );
         Ok(())
     }
 }

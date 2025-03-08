@@ -1,5 +1,8 @@
 use clap::Args;
 
+use crate::cli::Cmd;
+use crate::context::Ctx;
+
 /// list targets
 #[derive(Clone, Args)]
 pub struct BustupTargetList {
@@ -8,9 +11,13 @@ pub struct BustupTargetList {
     pub installed: bool,
 }
 
-impl BustupTargetList {
-    pub fn run(&self) -> anyhow::Result<()> {
-        println!("listing targets...");
+impl Cmd for BustupTargetList {
+    fn run(&self, ctx: &mut Ctx) -> anyhow::Result<()> {
+        println!(
+            "Listing {} targets for the {} toolchain",
+            if self.installed { "installed" } else { "all" },
+            ctx.target_toolchain.as_ref().unwrap()
+        );
         Ok(())
     }
 }

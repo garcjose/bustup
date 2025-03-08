@@ -1,5 +1,8 @@
 use clap::Args;
 
+use crate::cli::Cmd;
+use crate::context::Ctx;
+
 /// add a target
 #[derive(Clone, Args)]
 pub struct BustupTargetAdd {
@@ -8,9 +11,13 @@ pub struct BustupTargetAdd {
     pub target: String,
 }
 
-impl BustupTargetAdd {
-    pub fn run(&self) -> anyhow::Result<()> {
-        println!("adding target...{}", self.target);
+impl Cmd for BustupTargetAdd {
+    fn run(&self, ctx: &mut Ctx) -> anyhow::Result<()> {
+        println!(
+            "adding the {} target to the {} toolchain",
+            self.target,
+            ctx.target_toolchain.as_ref().unwrap()
+        );
         Ok(())
     }
 }

@@ -1,13 +1,16 @@
 mod cli;
+mod context;
 use clap::Parser;
 
 use crate::cli::Bustup;
+use crate::cli::Cmd;
+use crate::context::Ctx;
 
 fn main() -> anyhow::Result<()> {
     let args = Bustup::parse();
-    match args.cmd {
-        cli::BustupCmd::Update(update) => update.run()?,
-        cli::BustupCmd::Target(target) => target.run()?,
-    }
-    Ok(())
+
+    let mut ctx = Ctx::default();
+
+    let cmd: &dyn Cmd = &args;
+    cmd.walk_exec(&mut ctx)
 }
